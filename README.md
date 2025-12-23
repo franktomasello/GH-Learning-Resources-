@@ -26,7 +26,7 @@ Deep-dive tutorials for configuring and managing GitHub EMU environments:
 - **[Rafferty's EMU Guides](https://raffertyuy.com/)**  
   Expert tutorials and configuration walkthroughs for EMU deployments
 
-- **[Setting Up GitHub Copilot for Your Company](https://devblogs.microsoft.com/all-things-azure/tutorial-videos-setting-up-github-copilot-for-your-company/)**  
+- **[Setting Up GitHub Copilot for Your Company w/EMU](https://devblogs.microsoft.com/all-things-azure/tutorial-videos-setting-up-github-copilot-for-your-company/)**  
   Video tutorials for enterprise Copilot rollout and administration
 
 - **[EMU Setup Instructions](https://emu-instructions.githubapp.com)**  
