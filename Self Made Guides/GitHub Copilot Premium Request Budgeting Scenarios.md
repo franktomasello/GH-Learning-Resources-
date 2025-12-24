@@ -1,118 +1,104 @@
 # GitHub Copilot Premium Request Budgeting Scenarios
 
-This guide outlines two scenarios to help you set up GitHub Copilot in your GitHub Enterprise environment for optimal cost efficiency and usage control.
+This guide covers two common scenarios for controlling Copilot premium request overage spend in GitHub Enterprise Cloud.
 
-- Scenario 1: Selective onboarding to Copilot Enterprise for heavy users of Premium Requests.
-- Scenario 2: Setting separate spending limits for specific Copilot users.
+- **Scenario 1:** Put heavy premium-request users on Copilot Enterprise (often cheaper at high usage)
+- **Scenario 2:** Give some users a higher overage budget while keeping everyone else restricted
 
-> Note: Both scenarios require creating a new budget. By default, Copilot Premium Requests have a $0 budget applied, which must be removed for the options below to work properly.
+---
 
-## Scenario 1: Selective Onboarding to Copilot Enterprise for Premium Request Power Users
+## What Actually Controls Overages (Don't Skip)
 
-**Situation:** You want to onboard a subset of users to Copilot Enterprise because it may be more cost-effective for heavy users of Premium Requests.
+### 1) Premium Request Paid Usage Policy
 
-> Note: Copilot Enterprise is only available for GitHub Enterprise (GHE) customers. It is not available for customers on non-GHE SKUs.
+For organizations/enterprises, the **"Premium request paid usage"** policy determines whether users can go beyond their included monthly allowance and incur overage charges (it's enabled by default).
 
-### Background
+### 2) Premium Request Budgets
 
-**Copilot Business:**
+Budgets can monitor or block overages. If any applicable budget has **"Stop usage when budget limit is reached"** enabled and becomes exhausted, then additional premium requests are blocked. Budgets also do not override each other automatically.
 
-- 300 Premium Requests/month
-- $19/user/month
-- Additional requests: $0.04 per request
+### 3) Legacy "$0 Copilot Premium Request Budget" (Not Universal Anymore)
 
-**Copilot Enterprise:**
+- Accounts created before Aug 22, 2025 had a default $0 budget for Copilot premium requests that would reject overage requests unless you edited/deleted it.
+- Beginning Dec 2, 2025, GitHub began removing account-level $0 Copilot premium request budgets for Enterprise/Team accounts created before Aug 22, 2025.
 
-- 1,000 Premium Requests/month
-- $39/user/month
-- Additional requests: $0.04 per request
+**So:** Do not assume a $0 budget exists—check your Budgets & alerts page first.
 
-### Cost Comparison
+---
 
-| Monthly Premium Requests | Copilot Business (CB) Total Cost | Copilot Enterprise (CE) Total Cost | Savings (CE vs CB) |
-| --- | --- | --- | --- |
-| 300 | $19 (License) + $0 | $39 (License) + $0 | -$20 |
-| 500 | $19 + $8 (200 x $0.04) = $27 | $39 + $0 = $39 | -$12 |
-| 800 | $19 + $20 (500 x $0.04) = $39 | $39 + $0 = $39 | $0 (Breakeven) |
-| 1,000 | $19 + $28 (700 x $0.04) = $47 | $39 + $0 = $39 | $8 |
-| 2,000 | $19 + $68 (1,700 x $0.04) = $87 | $39 + $40 (1,000 x $0.04) = $79 | $8 |
+## Scenario 1: Selective Onboarding to Copilot Enterprise for Premium-Request Power Users
 
-**Tip:** Any user making 800 or more Premium Requests per month will save money by being on Copilot Enterprise.
+**Situation:** You want to move a subset of users to Copilot Enterprise because it may be more cost-effective for heavy premium-request users.
 
-### Directions
+### Verified Plan Entitlements & Pricing
 
-1. Download your GitHub Copilot Premium Request Usage Report following these instructions.
-2. Aggregate the report to identify users who exceed 800 Premium Requests/month.
-3. Create a new organization within your GitHub Enterprise.
-4. Invite the power users to the new organization.
-5. Assign Copilot Enterprise licenses to those users in the new organization.
-6. Continue monitoring usage to ensure Copilot Enterprise remains the most cost-effective option for these users.
+- **Copilot Business:** 300 premium requests/user/month; $19 per granted seat/month; additional premium requests $0.04/request
+- **Copilot Enterprise:** 1,000 premium requests/user/month; $39 per granted seat/month; additional premium requests $0.04/request
 
-## Scenario 2: Setting Separate Spending Limits for Specific Copilot Users
+### Cost Comparison (Math-Checked)
 
-**Situation:** You want to set a separate budget for certain users to ensure they can continue using Premium Requests beyond their default entitlement.
+| Monthly Premium Requests | Copilot Business Total | Copilot Enterprise Total | Savings (CE vs CB) |
+|--------------------------|------------------------|--------------------------|-------------------|
+| 300 | $19 + $0 = **$19** | $39 + $0 = **$39** | **-$20** |
+| 500 | $19 + $8 (200×$0.04) = **$27** | $39 + $0 = **$39** | **-$12** |
+| 800 | $19 + $20 (500×$0.04) = **$39** | $39 + $0 = **$39** | **$0** |
+| 1,000 | $19 + $28 (700×$0.04) = **$47** | $39 + $0 = **$39** | **$8** |
+| 2,000 | $19 + $68 (1,700×$0.04) = **$87** | $39 + $40 (1,000×$0.04) = **$79** | **$8** |
 
-### Background
+**Key Rule:** GitHub's own guidance notes that Business users making **>800 premium requests/month** would save money on Copilot Enterprise.
 
-There are currently two supported methods to assign custom spending limits for specific users:
+### Directions (Verified Sequence)
 
-- Create a separate Organization and set a budget specific to that Organization.
-- Create a Cost Center, assign users to it, and set a budget specific to that Cost Center.
+1. Download the **"Copilot premium requests usage report"** from Enterprise → Billing & licensing → Usage.
+2. Aggregate the report to find users near/over 800 premium requests/month.
+3. Create a new organization in your enterprise.
+4. Add the high-usage users to that new org.
+5. Grant Copilot Enterprise licenses to all users in that new org (including upgrading the enterprise/org to Copilot Enterprise if needed).
+6. Re-check usage regularly to ensure the move remains cost-effective.
 
-> Note: A user can belong to only one Cost Center at a time. If you already use Cost Centers for other purposes, only Option 1 may be viable.
+---
 
-> Note: Copilot Premium Requests have a default $0 budget at the Enterprise level. To manage spending, you’ll need to delete this default budget and create two separate budgets: one for the users you want to allocate additional Copilot spend to, and another for the users you do not want to allocate additional spend to (this budget can remain at $0). Each budget should be scoped to the appropriate organization or Cost Center that contains the relevant users.
+## Scenario 2: Separate Spending Limits for Specific Users
+
+**Situation:** You want some users to be able to incur paid overages, while keeping everyone else restricted.
+
+### Two Supported Approaches (Verified)
+
+- Separate Organization + budget scoped to that org
+- Cost Center + budget scoped to that cost center
+
+**Non-negotiable requirement:** Every Copilot user must be covered by some budget, otherwise uncovered users can have unlimited spending on premium requests.
+
+**Budget interaction gotcha:** Creating a new budget does not override an existing one; "Stop usage…" on any applicable budget can block overages once exhausted.
+
+---
 
 ### Option 1: Use a Separate Organization Budget
 
-1. Download your GitHub Copilot Premium Request Usage Report following these instructions.
-2. Aggregate the report to identify users who may benefit from an increased budget.
-3. Delete the default $0 Copilot Premium Request Budget.
-4. Create a new organization within your GitHub Enterprise.
-5. Invite the selected users to the new organization.
-6. Assign Copilot licenses to those users.
-7. Create a budget for that organization at the Enterprise level for users who should have additional premium requests.
-8. Configure the budget:
-	- Budget Type: SKU-level budget
-	- Product: Copilot
-	- SKU: Copilot Premium Request
-	- Budget Scope: The newly created organization
-	- Budget Amount: Your desired limit
-	- Alerts: Optional thresholds for budget notifications
-9. Create a budget for that organization at the Enterprise level for users who should have NO additional premium requests.
-10. Configure the budget:
-	- Budget Type: SKU-level budget
-	- Product: Copilot
-	- SKU: Copilot Premium Request
-	- Budget Scope: The original organization
-	- Budget Amount: Your desired limit
-	- Alerts: Optional thresholds for budget notifications
-11. Monitor usage to ensure the budget aligns with actual usage patterns.
+1. Download the Copilot premium requests usage report.
+2. Identify the users who need paid overages.
+3. Ensure **Premium request paid usage policy** is configured as intended (enabled if you want paid overages).
+4. Check **Budgets & alerts** and remove/edit any legacy $0 Copilot premium request budget if present.
+5. Create a new org for "allowed overage" users and add them.
+6. Create a premium requests budget scoped to that new org:
+   - **Budget Type:** Bundled premium requests budget (recommended for most) or SKU-level (Copilot → Copilot Premium Request)
+   - **Scope:** New organization
+   - **Amount:** Your monthly $ limit
+   - If you want hard enforcement: enable **Stop usage when budget limit is reached**
+7. Create a separate restrictive budget that covers all other Copilot users (e.g., scoped to the original org(s), another "default" org, or enterprise-level—your choice, but coverage must be complete).
+
+---
 
 ### Option 2: Use a Cost Center Budget
 
-1. Download your GitHub Copilot Premium Request Usage Report following these instructions.
-2. Aggregate the report to identify users who may benefit from an increased budget.
-3. Create a new Cost Center.
-4. Assign users who should have additional premium requests to the Cost Center using the API.
-5. Create a budget for the Cost Center at the Enterprise level.
-6. Configure the budget:
-	- Budget Type: SKU-level budget
-	- Product: Copilot
-	- SKU: Copilot Premium Request
-	- Budget Scope: Cost Center for additional premium requests
-	- Budget Amount: Your desired limit
-	- Alerts: Optional thresholds for budget notifications
-7. Create a new Cost Center.
-8. Assign users who should have additional NO premium requests to the Cost Center using the API.
-9. Create a budget at the Enterprise level.
-10. Configure the budget:
-	- Budget Type: SKU-level budget
-	- Product: Copilot
-	- SKU: Copilot Premium Request
-	- Budget Scope: Cost Center for NO premium requests
-	- Budget Amount: Your desired limit
-	- Alerts: Optional thresholds for budget notifications
-11. Continue monitoring Premium Request usage to validate the budget's effectiveness.
+1. Download the Copilot premium requests usage report.
+2. Ensure the **Premium request paid usage policy** is configured as intended.
+3. Create a Cost Center for "allowed overage" users and assign those users to it (UI and API are supported).
+4. Create a premium requests budget scoped to that cost center (Bundled premium requests budget or SKU-level).
+5. Create a second budget that covers everyone else (either a second cost center containing everyone else, or a separate org/enterprise budget that ensures complete coverage).
 
-**Tip:** You can combine both scenarios if you'd like specific Copilot Enterprise users to have different spending limits than other Copilot Enterprise users.
+**API Note (Verified):** Adding users to cost centers is supported via the enterprise billing REST API, but the endpoint does not work with fine-grained PATs (and some GitHub App token types).
+
+---
+
+*Updated: December 2025*
