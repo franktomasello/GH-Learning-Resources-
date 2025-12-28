@@ -58,6 +58,30 @@ Various sites and YouTube channels from our FastTrack team that contain excellen
 
 ---
 
+## 🤖 GitHub Copilot Resources
+
+Stay updated with the latest Copilot features and best practices:
+
+- **[Keeping Up with Copilot Series](https://github.com/github/solutions-engineering/issues/26149)**  
+  Keeping Up with Copilot series that is done by GitHub SEs and CSAs. It covers the latest and greatest with Copilot in a webinar format.
+
+- **[Mastering GitHub Copilot for Paired Programming](https://github.com/microsoft/Mastering-GitHub-Copilot-for-Paired-Programming)**  
+  A 6-lesson curriculum from Microsoft that teaches how to build a web server using Copilot as your pair programmer
+
+- **[GitHub Copilot Trust Center](https://resources.github.com/copilot-trust-center/)**  
+  Central hub for information on how Copilot handles data, privacy, intellectual property, and security compliance
+
+- **[How to Write Better Prompts for GitHub Copilot](https://github.blog/2023-06-20-how-to-write-better-prompts-for-github-copilot/)**  
+  Comprehensive guide detailing specific prompt crafting techniques like "one-shot" vs "few-shot" learning
+
+- **[Mastering Unit Testing with GitHub Copilot](https://github.blog/2024-01-22-how-to-use-github-copilot-for-unit-testing/)**  
+  Advanced strategies for generating edge cases, mocking dependencies, and writing comprehensive test suites
+
+- **[Refactoring Code with GitHub Copilot](https://devblogs.microsoft.com/visualstudio/refactoring-code-with-github-copilot/)**  
+  Practical walkthrough of using Copilot to identify code smells and safely refactor legacy code blocks
+
+---
+
 ## 💡 About This Collection
 
 This resource hub is built from real customer engagements and self-guided learning experiences. It complements official GitHub documentation with practical guides for common enterprise scenarios.
